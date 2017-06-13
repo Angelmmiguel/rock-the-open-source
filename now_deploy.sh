@@ -10,7 +10,6 @@ existing_id=$(now --token=$NOW_TOKEN ls $APP_NAME | tail -n 2 | head -n 1 | awk 
 now -t "$NOW_TOKEN" \
     -n $APP_NAME \
     --public -C \
-    -e NODE_ENV='production' \
     -e REACT_APP_FIREBASE_APIKEY=$REACT_APP_FIREBASE_APIKEY \
     -e REACT_APP_FIREBASE_AUTHDOMAIN=$REACT_APP_FIREBASE_AUTHDOMAIN \
     -e REACT_APP_FIREBASE_DATABASEURL=$REACT_APP_FIREBASE_DATABASEURL \
@@ -20,7 +19,7 @@ now -t "$NOW_TOKEN" \
     "$(pwd)"
 
 # Get the deploy ID of the fresh deploy
-deployment_id=$($now ls $APP_NAME | head -n 5 | tail -n 1 | awk '{print $1}')
+deployment_id=$(now ls $APP_NAME | head -n 5 | tail -n 1 | awk '{print $1}')
 
 # Move the URL symbolic link to the new deploy
 now ln -C \
@@ -28,4 +27,4 @@ now ln -C \
     "$deployment_id" $APP_NAME
 
 # Remove the old version
-now rm -y "$existing_id"
+now rm -t "$NOW_TOKEN" -y "$existing_id"
