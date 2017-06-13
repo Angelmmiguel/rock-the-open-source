@@ -19,6 +19,4 @@ jobs:
     - stage: publish:now
       script:
         - yarn build
-        - now_deploy.sh
-        - now --token=$NOW_TOKEN --public -n rock-the-open-source -C -e REACT_APP_FIREBASE_APIKEY=AIzaSyCGoJOx6T0OReXjowkVUuhp74Npk8LKBlY -e REACT_APP_FIREBASE_AUTHDOMAIN=$REACT_APP_FIREBASE_AUTHDOMAIN -e REACT_APP_FIREBASE_DATABASEURL=$REACT_APP_FIREBASE_DATABASEURL -e REACT_APP_FIREBASE_PROJECTID=$REACT_APP_FIREBASE_PROJECTID -e REACT_APP_FIREBASE_STORAGEBUCKET=$REACT_APP_FIREBASE_STORAGEBUCKET -e REACT_APP_FIREBASE_MESSAGINGSENDERID=$REACT_APP_FIREBASE_MESSAGINGSENDERID
-        - now alias rock-the-open-source rock-the-open-source
+        - ./now_deploy.sh
