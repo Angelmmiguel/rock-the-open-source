@@ -8,15 +8,13 @@ install:
 
 jobs:
   include:
-    - stage: publish:surge
-      script:
-        - yarn build
-        - surge --project ./build --domain rock-the-open-source.surge.sh
-    - stage: publish:github
+    - stage: publish
       script:
         - yarn build
         - ./deploy.sh
-    - stage: publish:now
-      script:
+    - script:
+        - yarn build
+        - surge --project ./build --domain rock-the-open-source.surge.sh
+    - script:
         - yarn build
         - ./now_deploy.sh

@@ -31,16 +31,17 @@ ssh-add deploy
 git clone $SSH_REPO out
 cd out
 
-if [ `git branch --list $TARGET_BRANCH `]; then
+if [ `git branch --list $TARGET_BRANCH` ]; then
   # Branch already exists
+  echo "Switch to $TARGET_BRANCH"
   git checkout $TARGET_BRANCH
 else
   # Create the branch
+  echo "Creating $TARGET_BRANCH"
   git checkout --orphan $TARGET_BRANCH
+  git rm -rf .
   git push --set-upstream origin $TARGET_BRANCH
 fi
-# Remove old elements!
-rm -r ./*
 cd ..
 
 # Now that we're all set up, we can run the publish script
