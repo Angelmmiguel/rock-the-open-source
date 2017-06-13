@@ -17,7 +17,7 @@ SHA=`git rev-parse --verify HEAD`
 
 # Clone the existing gh-pages for this repo into out/
 # Create a new empty branch if gh-pages doesn't exist yet (should only happen on first deploy)
-git clone $REPO out
+git clone $SSH_REPO out
 cd out
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 cd ..
@@ -25,6 +25,7 @@ cd ..
 # Config git
 git config --global user.name "Travis CI"
 git config --global user.email "bot@rock-the-open-source.com"
+git config --global push.default simple
 
 # Get the deploy key by using Travis's stored variables to decrypt deploy_key.enc
 openssl aes-256-cbc -K $encrypted_7b3bd922f0aa_key -iv $encrypted_7b3bd922f0aa_iv -in deploy.enc -out deploy -d
