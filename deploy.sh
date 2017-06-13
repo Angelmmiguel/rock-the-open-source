@@ -22,6 +22,10 @@ cd out
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 cd ..
 
+# Config git
+git config --global user.name "Travis CI"
+git config --global user.email "bot@rock-the-open-source.com"
+
 # Get the deploy key by using Travis's stored variables to decrypt deploy_key.enc
 openssl aes-256-cbc -K $encrypted_7b3bd922f0aa_key -iv $encrypted_7b3bd922f0aa_iv -in deploy.enc -out deploy -d
 chmod 600 deploy
@@ -40,11 +44,6 @@ else
   git add -A
   now=$(date +"%m_%d_%Y")
   git commit -m "Publishing new changes ($now)"
-
-  # Configure git
-  git config user.name "Travis CI"
-  git config user.email "bot@rock-the-open-source.com"
-
   # Push
   git push
   echo "All the changes has been pubhlised"
