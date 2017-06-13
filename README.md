@@ -1,2 +1,3 @@
 # rock-the-open-source
-Rock the Open Source!
+
+Example for the meetup :)
