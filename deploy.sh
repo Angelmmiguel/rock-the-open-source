@@ -15,13 +15,6 @@ REPO=`git config remote.origin.url`
 SSH_REPO=${REPO/https:\/\/github.com\//git@github.com:}
 SHA=`git rev-parse --verify HEAD`
 
-# Clone the existing gh-pages for this repo into out/
-# Create a new empty branch if gh-pages doesn't exist yet (should only happen on first deploy)
-git clone $SSH_REPO out
-cd out
-git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
-cd ..
-
 # Config git
 git config --global user.name "Travis CI"
 git config --global user.email "bot@rock-the-open-source.com"
@@ -33,8 +26,15 @@ chmod 600 deploy
 eval `ssh-agent -s`
 ssh-add deploy
 
+# Clone the existing gh-pages for this repo into out/
+# Create a new empty branch if gh-pages doesn't exist yet (should only happen on first deploy)
+git clone $SSH_REPO out
+cd out
+git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
+cd ..
+
 # Now that we're all set up, we can run the publish script
-cp -r ./build/* out
+cp -a ./build/. ./out/
 cd out
 
 # Create the commit and push!
