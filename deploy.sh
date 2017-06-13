@@ -37,7 +37,7 @@ if [ `git branch --list $TARGET_BRANCH `]; then
 else
   # Create the branch
   git checkout --orphan $TARGET_BRANCH
-  git push --set-upstream $TARGET_BRANCH
+  git push --set-upstream origin $TARGET_BRANCH
 fi
 # Remove old elements!
 rm -r ./*
