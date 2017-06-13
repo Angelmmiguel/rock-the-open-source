@@ -28,9 +28,9 @@ git config user.email "bot@dayssincethelatestcontainersservice.com"
 
 # Get the deploy key by using Travis's stored variables to decrypt deploy_key.enc
 openssl aes-256-cbc -K $encrypted_7b3bd922f0aa_key -iv $encrypted_7b3bd922f0aa_iv -in deploy.enc -out deploy -d
-chmod 600 deploy_key
+chmod 600 deploy
 eval `ssh-agent -s`
-ssh-add deploy_key
+ssh-add deploy
 
 # Now that we're all set up, we can run the publish script
 cp -r ./build/* out
