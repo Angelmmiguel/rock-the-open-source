@@ -4,11 +4,10 @@
 APP_NAME="rock-the-open-source"
 
 # Grab the deploy ID from the running site
-existing_id=$($now --token=$NOW_TOKEN ls $APP_NAME | tail -n 2 | head -n 1 | awk '{print $1}')
+existing_id=$(now --token=$NOW_TOKEN ls $APP_NAME | tail -n 2 | head -n 1 | awk '{print $1}')
 
 # Deploy changes to a fresh URL
-$now -C \
-    -t "$NOW_TOKEN" \
+now -t "$NOW_TOKEN" \
     -n $APP_NAME \
     --public -C \
     -e NODE_ENV='production' \
@@ -24,9 +23,9 @@ $now -C \
 deployment_id=$($now ls $APP_NAME | head -n 5 | tail -n 1 | awk '{print $1}')
 
 # Move the URL symbolic link to the new deploy
-$now ln -C \
+now ln -C \
     -t "$NOW_TOKEN" \
     "$deployment_id" $APP_NAME
 
 # Remove the old version
-$now rm -y "$existing_id"
+now rm -y "$existing_id"

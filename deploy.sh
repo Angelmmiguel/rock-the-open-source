@@ -30,33 +30,26 @@ ssh-add deploy
 # Create a new empty branch if gh-pages doesn't exist yet (should only happen on first deploy)
 git clone $SSH_REPO out
 cd out
-
-if [ `git branch --list $TARGET_BRANCH` ]; then
-  # Branch already exists
-  echo "Switch to $TARGET_BRANCH"
-  git checkout $TARGET_BRANCH
-else
-  # Create the branch
-  echo "Creating $TARGET_BRANCH"
-  git checkout --orphan $TARGET_BRANCH
-  git rm -rf .
-  git push --set-upstream origin $TARGET_BRANCH
-fi
+git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 cd ..
+
+# Clean out existing contents
+rm -rf out/**/* || exit 0
 
 # Now that we're all set up, we can run the publish script
 cp -a ./build/. ./out/
 cd out
 
 # Create the commit and push!
-if git diff-index --quiet HEAD --; then
-  echo "No changes to push"
-else
-  echo "Publishing new changes"
-  git add -A
-  now=$(date +"%m_%d_%Y")
-  git commit -m "Publishing new changes ($now)"
-  # Push
-  git push
-  echo "All the changes has been pubhlised"
+if git diff --quiet; then
+    echo "No changes to the output on this push; exiting."
+    exit 0
 fi
+
+echo "Publishing new changes"
+git add -A
+current=$(date +"%m_%d_%Y")
+git commit -m "Publishing new changes ($current)"
+# Push
+git push $SSH_REPO $TARGET_BRANCH
+echo "All the changes has been published"
