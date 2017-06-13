@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - "7"
+cache: yarn
+install:
+  - yarn install
+  - yarn global add surge
+
+jobs:
+  include:
+    - stage: publish:surge
+      script:
+        - yarn build
+        - surge --project ./build --domain rock-the-open-source.surge.sh
+    - stage: publish:github
+      script:
+        - yarn build
+        - ./deploy.sh
