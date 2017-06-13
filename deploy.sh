@@ -34,7 +34,7 @@ git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 cd ..
 
 # Clean out existing contents
-rm -rf out/**/* || exit 0
+rm -rf out/* || exit 0
 
 # Now that we're all set up, we can run the publish script
 cp -a ./build/. ./out/
