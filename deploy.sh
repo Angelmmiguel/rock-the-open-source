@@ -30,7 +30,17 @@ ssh-add deploy
 # Create a new empty branch if gh-pages doesn't exist yet (should only happen on first deploy)
 git clone $SSH_REPO out
 cd out
-git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
+
+if [ `git branch --list $TARGET_BRANCH `]; then
+  # Branch already exists
+  git checkout $TARGET_BRANCH
+else
+  # Create the branch
+  git checkout --orphan $TARGET_BRANCH
+  git push --set-upstream $TARGET_BRANCH
+fi
+# Remove old elements!
+rm -r ./*
 cd ..
 
 # Now that we're all set up, we can run the publish script
