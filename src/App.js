@@ -108,7 +108,7 @@ class App extends Component {
     return (
       <div className="mw7 center ph2">
         <header className="mv5">
-          <h1 className="tc f2 black-70">Rock the Open Source!</h1>
+          <h1 className="tc f2 black-70">Rock the Open Source with CD!!</h1>
           <form onSubmit={ this.onSubmit }>
             <input className="input-reset ba b--black-20 pa2 mb2 db w-100 border-box"
               value={ this.state.currentMessage } onChange={ this.onChange }
