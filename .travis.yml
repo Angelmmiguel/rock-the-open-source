@@ -18,5 +18,4 @@ jobs:
         - yarn build
         - surge --project ./build --domain rock-the-open-source.surge.sh
     - script:
-        - yarn build
         - ./now_deploy.sh
