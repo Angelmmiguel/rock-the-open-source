@@ -8,6 +8,8 @@ install:
 
 jobs:
   include:
+    - stage: test
+      script: yarn test
     - stage: publish
       script:
         - yarn build
