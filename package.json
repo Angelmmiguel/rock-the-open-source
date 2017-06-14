@@ -16,7 +16,7 @@
     "start": "node index.js",
     "startjs": "react-scripts start",
     "build": "react-scripts build",
-    "postinstall": "yarn build",
+    "postinstall": "npm run build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
