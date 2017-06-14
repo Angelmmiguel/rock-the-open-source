@@ -12,10 +12,8 @@ jobs:
       script: yarn test
     - stage: publish
       script:
-        - yarn build
         - ./deploy.sh
     - script:
-        - yarn build
         - surge --project ./build --domain rock-the-open-source.surge.sh
     - script:
         - ./now_deploy.sh
