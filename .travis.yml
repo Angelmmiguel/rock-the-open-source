@@ -20,5 +20,6 @@ deploy:
     project: ./build/
     domain: rock-the-open-source.surge.sh
   - provider: pages
+    local_dir: ./build/
     skip_cleanup: true
     github_token: $GITHUB_TOKEN
