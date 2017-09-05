@@ -12,8 +12,13 @@ jobs:
       script: yarn test
     - stage: publish
       script:
-        - ./deploy.sh
-    - script:
-        - surge --project ./build --domain rock-the-open-source.surge.sh
-    - script:
         - ./now_deploy.sh
+
+deploy:
+  - provider: surge
+    skip_cleanup: true
+    project: ./build/
+    domain: rock-the-open-source.surge.sh
+  - provider: pages
+    skip_cleanup: true
+    github_token: $GITHUB_TOKEN
